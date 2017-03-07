@@ -1,0 +1,35 @@
+* Golang Configuration
+*** go-mode
+#+BEGIN_SRC emacs-lisp
+  (req-package go-mode
+    :init
+    (progn
+      (add-hook 'before-save-hook 'gofmt-before-save)
+      (setq compile-command "go build -v && go test -v  && go vet && golint")
+      (setq gofmt-command "goimports")
+      (local-set-key (kbd "M-.") 'godef-jump)))
+#+END_SRC
+*** go-eldoc
+#+BEGIN_SRC emacs-lisp
+  (req-package go-eldoc
+    :init
+    (progn
+      (go-eldoc-setup)))
+#+END_SRC
+*** autocomplete
+#+BEGIN_SRC emacs-lisp
+  (req-package go-autocomplete
+    :require (auto-complete auto-complete-config)
+    :config
+    (progn
+      (ac-config-default)
+      (setq ac-auto-start 3)
+    ))
+#+END_SRC
+*** go-lint
+#+BEGIN_SRC
+  (req-package golint
+    :init
+    (add-to-list 'load-path
+        (concat (getenv "GOPATH") "/src/github.com/golang/lint/misc/emacs")))
+#+END_SRC

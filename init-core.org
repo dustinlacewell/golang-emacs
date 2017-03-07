@@ -1,0 +1,138 @@
+* Shared Configuration
+** Package Management
+[[https://github.com/edvorg/req-package][req-package]] is a macro wrapper on top of [[https://github.com/jwiegley/use-package][use-package]], and together they provide
+a declarative way to load packages and modularize configuration.
+
+Super package management powers, activate!
+#+BEGIN_SRC emacs-lisp
+  (require 'req-package)
+#+END_SRC
+** UX Settings
+*** Splash Screen
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+#+END_SRC
+*** Prompts
+Shorten Yes or No prompts
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+*** Menus and Toolbars
+Hide the menus and toolbars
+#+BEGIN_SRC emacs-lisp
+  (tool-bar-mode -1)
+  (menu-bar-mode -1)
+#+END_SRC
+*** Scrollbars
+Hide all scrollbars
+#+BEGIN_SRC emacs-lisp
+  (set-scroll-bar-mode nil)
+#+END_SRC
+*** Prettify
+#+BEGIN_SRC emacs-lisp
+  (prettify-symbols-mode 1)
+#+END_SRC
+
+** Buffers
+*** Backups
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   create-lockfiles nil
+   auto-save-interval 20
+   auto-save-timeout 10)
+  (setq backup-directory-alist
+        `(("." . ,tmp-file-directory)))
+  (setq auto-save-file-name-transforms
+      `((".*" ,tmp-file-directory t)))
+#+END_SRC
+*** Whitespace
+#+BEGIN_SRC emacs-lisp
+  (setq-default
+   show-trailing-whitespace t
+   require-final-newline t
+   indent-tabs-mode nil
+   tab-width 4)
+#+END_SRC
+Hide trailing whitespace in some modes
+#+BEGIN_SRC emacs-lisp
+  (defun hide-trailing-whitespace ()
+    (interactive)
+    (setq show-trailing-whitespace nil))
+  (add-hook 'initial-calendar-window-hook
+            (lambda ()
+              (setq show-trailing-whitespace nil)))
+  (add-hook 'helm-mode 'hide-trailing-whitespace)
+  (add-hook 'calendar-mode 'hide-trailing-whitespace)
+  (add-hook 'eww-mode-hook 'hide-trailing-whitespace)
+#+END_SRC
+
+*** Parenthesis
+#+BEGIN_SRC emacs-lisp
+  (show-paren-mode 1)
+  (electric-pair-mode 1)
+#+END_SRC
+*** Autofill and Columns
+#+BEGIN_SRC emacs-lisp
+  (column-number-mode 1)
+  (setq-default fill-column 87)
+#+END_SRC
+*** Mark
+#+BEGIN_SRC emacs-lisp
+  (setq-default shift-select-mode t)
+  (transient-mark-mode t)
+#+END_SRC
+
+** Packages
+*** helm
+[[https://github.com/emacs-helm/helm][Helm]] is a nice fuzzy search for most emacs filtering features.
+#+BEGIN_SRC emacs-lisp
+  (req-package helm-config
+    :require (projectile helm helm-projectile wgrep wgrep-helm)
+    :bind (("M-x" . helm-M-x)
+           ("C-x b" . helm-mini)
+           ("H-s" . helm-projectile-ack)
+           ("H-f" . helm-projectile-find-file)
+           ("C-x C-f" . helm-find-files)
+           ([remap occur] . helm-occur)
+           ([remap list-buffers] . helm-projectile-switch-to-buffer)
+           ([remap dabbrev-expand] . helm-dabbrev)
+           :map helm-map
+           ("<tab>" . helm-execute-persistent-action))
+    :init
+    (progn
+      (helm-mode 1)
+      (projectile-global-mode)
+      (helm-projectile-on)
+      (helm-autoresize-mode t)
+      (setq projectile-completion-system 'helm)))
+#+END_SRC
+
+*** magit
+#+BEGIN_SRC emacs-lisp
+  (req-package magit
+    :bind (("H-g" . magit-status)))
+#+END_SRC
+*** visible-mark
+#+BEGIN_SRC emacs-lisp
+  (req-package visible-mark
+    :bind (("M-SPC" . set-mark-command))
+    :init (global-visible-mark-mode 1))
+#+END_SRC
+*** rainbow-delimiters
+#+BEGIN_SRC emacs-lisp
+  (req-package rainbow-delimiters
+    :init
+    (rainbow-delimiters-mode 1))
+#+END_SRC
+*** hc-zenburn-theme
+#+BEGIN_SRC emacs-lisp
+  (req-package hc-zenburn-theme
+    :init
+    (load-theme #'hc-zenburn t))
+#+END_SRC
+** Customizations File
+#+BEGIN_SRC emacs-lisp
+  (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (load custom-file)
+#+END_SRC
