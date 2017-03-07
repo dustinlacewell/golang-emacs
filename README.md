@@ -2,7 +2,7 @@
 
 Clone this and then run Emacs like so:
 
-    emacs -q -l goland-emacs/init.el
+    emacs -q -l golang-emacs/init.el
     
 It will download packages on the first run.
 
