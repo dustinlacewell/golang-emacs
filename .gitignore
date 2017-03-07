@@ -1,0 +1,8 @@
+.tmp
+*~
+ac-comphist.dat
+custom.el
+projectile-bookmarks.eld
+recentf
+init-core.el
+init-go.el
