@@ -65,6 +65,9 @@ The newly built installed binaries should now be available through the side-`$GO
     /home/username/temp-gopath/.emacs.d/bin/go
     
 
+### Run Emacs
+
+
 Now you can run emacs with the provided configuration. *It will download
 packages on the first run*:
 
