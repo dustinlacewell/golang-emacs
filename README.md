@@ -70,6 +70,7 @@ packages on the first run*:
 
 
     cd $GOPATH
+    touch .emacs.d/custom.el
     emacs -q -l .emacs.d/init.el
     
     
