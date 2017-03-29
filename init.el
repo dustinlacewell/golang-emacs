@@ -1,7 +1,7 @@
 (setq debug-on-error t)
 
 (setq
- user-emacs-directory (expand-file-name (concat (getenv "GOPATH") ".emacs.d"))
+ user-emacs-directory (expand-file-name (concat (getenv "GOPATH") "/.emacs.d"))
  tmp-file-directory (format "%s/%s" user-emacs-directory ".tmp/")
  package-user-dir tmp-file-directory)
 
