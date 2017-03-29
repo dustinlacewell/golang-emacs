@@ -12,6 +12,8 @@ Make sure you have Docker installed and are in the `docker` group.
 
 ### 2. Add `$GOPATH/.emacs.d/bin` to your `$PATH`
 
+Add this to the **FRONT** of your path, so that these binaries are found before your system-installed or current `$GOPATH/bin` binaries.
+
 ### 3. Install the following go packages:
 
 
@@ -26,6 +28,8 @@ packages on the first run*:
 
     cd $GOPATH
     emacs -q -l golang-emacs/init.el
+    
+**Note:** *as of now, emacs must be launched from `$GOPATH` because my elisp sucks.*
 
 
 
