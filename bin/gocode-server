@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+exec docker run \
+       -d \
+       --name gocode-server \
+       -w $PWD \
+       -e USER=$USER \
+       -u 1000:1000 \
+       -v /tmp:/tmp \
+       -v /etc/group:/etc/group:ro \
+       -v /etc/passwd:/etc/passwd:ro \
+       -v $HOME:$HOME \
+       -v $GOPATH:$GOPATH \
+       -e GOPATH=$GOPATH \
+       -e PATH=/bin:/usr/bin:/usr/local/bin:/usr/local/go/bin:$GOPATH/bin \
+       --entrypoint $GOPATH/bin/gocode \
+       golang:1.6 -s -debug
+

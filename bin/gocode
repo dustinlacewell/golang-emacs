@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if docker ps -a | grep gocode-server &> /dev/null; then
+    $GOPATH/bin/gocode $@
+else
+    rm "/tmp/gocode-daemon.$USER"
+    gocode-server &>/dev/null &
+    sleep 0.5
+    $GOPATH/bin/gocode $@
+fi
+
+
+

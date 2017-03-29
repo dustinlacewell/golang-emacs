@@ -1,0 +1,13 @@
+#!/bin/bash
+
+docker run --rm -it \
+       -u 1000:1000 \
+       -v /etc/group:/etc/group:ro \
+       -v /etc/passwd:/etc/passwd:ro \
+       -v $HOME:$HOME \
+       -v $GOPATH:$GOPATH \
+       -e GOPATH=$GOPATH \
+       -e PATH=$PATH:$GOPATH/bin:/usr/local/go/bin \
+       -w $PWD \
+       --entrypoint godoc \
+       golang:1.6 $@

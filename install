@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+[ -z "$GOPATH" ] && echo "Need to set GOPATH" && exit 1;
+
+PATH=$PATH:$GOPATH/.emacs.d/bin
+
+go get -u golang.org/x/tools/cmd/goimports
+go get -u github.com/golang/lint/golint
+go get -u github.com/nsf/gocode
