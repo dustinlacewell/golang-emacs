@@ -62,7 +62,7 @@ The newly built installed binaries should now be available through the side-`$GO
     
     
     $ which gocode
-    /home/username/temp-gopath/.emacs.d/bin/go
+    /home/username/temp-gopath/.emacs.d/bin/gocode
     
 
 ### Run Emacs
